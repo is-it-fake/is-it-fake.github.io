@@ -75,8 +75,8 @@ export default function LandingPage() {
 
   useEffect(() => {
     checkServerHealth();
-    // Check health status every 30 seconds
-    const interval = setInterval(checkServerHealth, 30000);
+    // Check health status every 1 hour
+    const interval = setInterval(checkServerHealth, 3600000);
     return () => clearInterval(interval);
   }, []);
 
