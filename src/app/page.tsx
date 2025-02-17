@@ -6,6 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { CodeBlock } from "@/components/shared/CodeBlock/CodeBlock";
+import codeExamples from "@/data/code-examples.json";
 
 // Motion components
 const MotionDiv = motion.div;
@@ -168,7 +170,7 @@ export default function LandingPage() {
                 </TabsList>
               </div>
 
-              <div className="rounded-lg border border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22] shadow-sm">
+              <div className="rounded-lg border border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22] shadow-sm overflow-hidden">
                 <div className="flex items-center justify-between border-b border-[#d0d7de] dark:border-[#30363d] px-4 py-2">
                   <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full bg-destructive/20" />
@@ -180,47 +182,11 @@ export default function LandingPage() {
                     size="sm"
                     className="h-8 text-xs"
                     onClick={() => {
-                      const codeExamples = {
-                        curl: `curl -X POST https://mail.isitfake.xyz/check-email \\
-  -H "Content-Type: application/json" \\
-  -d '{"email": "user@example.com"}'`,
-                        js: `fetch("https://mail.isitfake.xyz/check-email", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email: "user@example.com",
-  }),
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error("Error:", error));`,
-                        python: `import requests
-
-response = requests.post(
-    "https://mail.isitfake.xyz/check-email",
-    json={"email": "user@example.com"}
-)
-
-data = response.json()
-print(data)`,
-                        node: `const axios = require("axios");
-
-async function checkEmail(email) {
-  try {
-    const response = await axios.post(
-      "https://mail.isitfake.xyz/check-email",
-      { email }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}`,
-                      };
-                      handleCopy(codeExamples[activeTab]);
+                      const example =
+                        activeTab === "js"
+                          ? codeExamples.javascript
+                          : codeExamples[activeTab];
+                      handleCopy(example.code);
                     }}
                   >
                     {copied ? (
@@ -232,69 +198,39 @@ async function checkEmail(email) {
                 </div>
 
                 <TabsContent value="curl" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`curl -X POST https://mail.isitfake.xyz/check-email \\
-  -H "Content-Type: application/json" \\
-  -d '{"email": "user@example.com"}'`}
-                    </pre>
-                  </div>
+                  <CodeBlock
+                    code={codeExamples.curl.code}
+                    language={codeExamples.curl.language}
+                    showLineNumbers={false}
+                    noBorder
+                  />
                 </TabsContent>
 
                 <TabsContent value="js" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`fetch("https://mail.isitfake.xyz/check-email", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email: "user@example.com",
-  }),
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error("Error:", error));`}
-                    </pre>
-                  </div>
+                  <CodeBlock
+                    code={codeExamples.javascript.code}
+                    language={codeExamples.javascript.language}
+                    showLineNumbers={false}
+                    noBorder
+                  />
                 </TabsContent>
 
                 <TabsContent value="python" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`import requests
-
-response = requests.post(
-    "https://mail.isitfake.xyz/check-email",
-    json={"email": "user@example.com"}
-)
-
-data = response.json()
-print(data)`}
-                    </pre>
-                  </div>
+                  <CodeBlock
+                    code={codeExamples.python.code}
+                    language={codeExamples.python.language}
+                    showLineNumbers={false}
+                    noBorder
+                  />
                 </TabsContent>
 
                 <TabsContent value="node" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`const axios = require("axios");
-
-async function checkEmail(email) {
-  try {
-    const response = await axios.post(
-      "https://mail.isitfake.xyz/check-email",
-      { email }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}`}
-                    </pre>
-                  </div>
+                  <CodeBlock
+                    code={codeExamples.node.code}
+                    language={codeExamples.node.language}
+                    showLineNumbers={false}
+                    noBorder
+                  />
                 </TabsContent>
               </div>
             </Tabs>
@@ -322,66 +258,22 @@ async function checkEmail(email) {
                   <h4 className="text-sm font-medium text-[#24292f] dark:text-[#c9d1d9] mb-4">
                     Request Body
                   </h4>
-                  <div className="font-mono text-sm bg-[#ffffff] dark:bg-[#0d1117] p-4 rounded-md text-left border border-[#d0d7de] dark:border-[#30363d]">
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"{"}
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;email&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        &quot;user@example.com&quot;
-                      </span>
-                    </div>
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"}"}
-                    </div>
-                  </div>
+                  <CodeBlock
+                    code={codeExamples.request.code}
+                    language={codeExamples.request.language}
+                    showLineNumbers={false}
+                  />
                 </div>
 
                 <div className="rounded-lg bg-[#f6f8fa] dark:bg-[#161b22] shadow-sm p-6 border border-[#d0d7de] dark:border-[#30363d]">
                   <h4 className="text-sm font-medium text-[#24292f] dark:text-[#c9d1d9] mb-4">
                     Response
                   </h4>
-                  <div className="font-mono text-sm bg-[#ffffff] dark:bg-[#0d1117] p-4 rounded-md text-left border border-[#d0d7de] dark:border-[#30363d]">
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"{"}
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;email&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        &quot;user@example.com&quot;
-                      </span>
-                      ,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;valid&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        true
-                      </span>
-                      ,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;message&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        &quot;Email is valid and active&quot;
-                      </span>
-                    </div>
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"}"}
-                    </div>
-                  </div>
+                  <CodeBlock
+                    code={codeExamples.response.code}
+                    language={codeExamples.response.language}
+                    showLineNumbers={false}
+                  />
                 </div>
               </div>
             </div>
