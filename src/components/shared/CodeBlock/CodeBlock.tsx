@@ -12,6 +12,7 @@ interface CodeBlockProps {
   language: string;
   title?: string;
   showLineNumbers?: boolean;
+  noBorder?: boolean;
 }
 
 export const CodeBlock: FC<CodeBlockProps> = ({
@@ -19,6 +20,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   language,
   title,
   showLineNumbers = false,
+  noBorder = false,
 }) => {
   const { theme } = useTheme();
   const [processedCode, setProcessedCode] = useState("");
@@ -32,6 +34,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
         theme: theme === "dark" ? "github-dark" : "github-light",
         keepBackground: false,
         grid: true,
+        defaultLang: language,
       };
 
       // Process the code through rehype-pretty-code
@@ -49,7 +52,14 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   }, [code, language, theme]);
 
   return (
-    <div className="rounded-lg border border-[#d0d7de] dark:border-[#30363d] bg-white dark:bg-[#0d1117] shadow-sm">
+    <div
+      className={`bg-white dark:bg-[#0d1117] shadow-sm ${
+        noBorder
+          ? ""
+          : "rounded-lg border border-[#d0d7de] dark:border-[#30363d]"
+      }`}
+      data-theme={theme}
+    >
       {title && (
         <div className="flex items-center justify-between border-b border-[#d0d7de] dark:border-[#30363d] px-4 py-2">
           <div className="flex items-center gap-2">

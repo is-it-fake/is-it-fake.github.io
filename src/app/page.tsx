@@ -169,7 +169,7 @@ export default function LandingPage() {
                 </TabsList>
               </div>
 
-              <div className="rounded-lg border border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22] shadow-sm">
+              <div className="rounded-lg border border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22] shadow-sm overflow-hidden">
                 <div className="flex items-center justify-between border-b border-[#d0d7de] dark:border-[#30363d] px-4 py-2">
                   <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full bg-destructive/20" />
@@ -239,6 +239,7 @@ async function checkEmail(email) {
   -d '{"email": "user@example.com"}'`}
                     language="bash"
                     showLineNumbers={false}
+                    noBorder
                   />
                 </TabsContent>
 
@@ -258,6 +259,7 @@ async function checkEmail(email) {
   .catch(error => console.error("Error:", error));`}
                     language="javascript"
                     showLineNumbers={false}
+                    noBorder
                   />
                 </TabsContent>
 
@@ -274,6 +276,7 @@ data = response.json()
 print(data)`}
                     language="python"
                     showLineNumbers={false}
+                    noBorder
                   />
                 </TabsContent>
 
@@ -295,6 +298,7 @@ async function checkEmail(email) {
 }`}
                     language="javascript"
                     showLineNumbers={false}
+                    noBorder
                   />
                 </TabsContent>
               </div>
