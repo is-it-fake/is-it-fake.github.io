@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { CodeBlock } from "@/components/shared/CodeBlock/CodeBlock";
+import codeExamples from "@/data/code-examples.json";
 
 // Motion components
 const MotionDiv = motion.div;
@@ -181,47 +182,11 @@ export default function LandingPage() {
                     size="sm"
                     className="h-8 text-xs"
                     onClick={() => {
-                      const codeExamples = {
-                        curl: `curl -X POST https://mail.isitfake.xyz/check-email \\
-  -H "Content-Type: application/json" \\
-  -d '{"email": "user@example.com"}'`,
-                        js: `fetch("https://mail.isitfake.xyz/check-email", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email: "user@example.com",
-  }),
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error("Error:", error));`,
-                        python: `import requests
-
-response = requests.post(
-    "https://mail.isitfake.xyz/check-email",
-    json={"email": "user@example.com"}
-)
-
-data = response.json()
-print(data)`,
-                        node: `const axios = require("axios");
-
-async function checkEmail(email) {
-  try {
-    const response = await axios.post(
-      "https://mail.isitfake.xyz/check-email",
-      { email }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}`,
-                      };
-                      handleCopy(codeExamples[activeTab]);
+                      const example =
+                        activeTab === "js"
+                          ? codeExamples.javascript
+                          : codeExamples[activeTab];
+                      handleCopy(example.code);
                     }}
                   >
                     {copied ? (
@@ -234,10 +199,8 @@ async function checkEmail(email) {
 
                 <TabsContent value="curl" className="mt-0">
                   <CodeBlock
-                    code={`curl -X POST https://mail.isitfake.xyz/check-email \\
-  -H "Content-Type: application/json" \\
-  -d '{"email": "user@example.com"}'`}
-                    language="bash"
+                    code={codeExamples.curl.code}
+                    language={codeExamples.curl.language}
                     showLineNumbers={false}
                     noBorder
                   />
@@ -245,19 +208,8 @@ async function checkEmail(email) {
 
                 <TabsContent value="js" className="mt-0">
                   <CodeBlock
-                    code={`fetch("https://mail.isitfake.xyz/check-email", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email: "user@example.com",
-  }),
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error("Error:", error));`}
-                    language="javascript"
+                    code={codeExamples.javascript.code}
+                    language={codeExamples.javascript.language}
                     showLineNumbers={false}
                     noBorder
                   />
@@ -265,16 +217,8 @@ async function checkEmail(email) {
 
                 <TabsContent value="python" className="mt-0">
                   <CodeBlock
-                    code={`import requests
-
-response = requests.post(
-    "https://mail.isitfake.xyz/check-email",
-    json={"email": "user@example.com"}
-)
-
-data = response.json()
-print(data)`}
-                    language="python"
+                    code={codeExamples.python.code}
+                    language={codeExamples.python.language}
                     showLineNumbers={false}
                     noBorder
                   />
@@ -282,21 +226,8 @@ print(data)`}
 
                 <TabsContent value="node" className="mt-0">
                   <CodeBlock
-                    code={`const axios = require("axios");
-
-async function checkEmail(email) {
-  try {
-    const response = await axios.post(
-      "https://mail.isitfake.xyz/check-email",
-      { email }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}`}
-                    language="javascript"
+                    code={codeExamples.node.code}
+                    language={codeExamples.node.language}
                     showLineNumbers={false}
                     noBorder
                   />
@@ -328,10 +259,8 @@ async function checkEmail(email) {
                     Request Body
                   </h4>
                   <CodeBlock
-                    code={`{
-  "email": "user@example.com"
-}`}
-                    language="json"
+                    code={codeExamples.request.code}
+                    language={codeExamples.request.language}
                     showLineNumbers={false}
                   />
                 </div>
@@ -341,12 +270,8 @@ async function checkEmail(email) {
                     Response
                   </h4>
                   <CodeBlock
-                    code={`{
-  "email": "user@example.com",
-  "valid": true,
-  "message": "Email is valid and active"
-}`}
-                    language="json"
+                    code={codeExamples.response.code}
+                    language={codeExamples.response.language}
                     showLineNumbers={false}
                   />
                 </div>
