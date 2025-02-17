@@ -1,0 +1,198 @@
+[data-rehype-pretty-code-fragment] {
+  @apply relative my-6;
+}
+
+[data-rehype-pretty-code-fragment] code {
+  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-[13px] leading-6;
+  counter-reset: line;
+  box-decoration-break: clone;
+}
+
+[data-rehype-pretty-code-fragment] .line {
+  @apply border-l-2 border-l-transparent px-4 py-0.5;
+}
+
+[data-rehype-pretty-code-fragment] [data-line-numbers] .line {
+  @apply px-2;
+  counter-increment: line;
+}
+
+[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
+  @apply mr-4 inline-block w-4 text-right text-xs text-muted-foreground/40;
+  content: counter(line);
+}
+
+[data-rehype-pretty-code-fragment] .line--highlighted {
+  @apply border-l-primary bg-primary/5;
+}
+
+[data-rehype-pretty-code-fragment] .word--highlighted {
+  @apply rounded-md border border-primary/20 bg-primary/10 p-1;
+}
+
+[data-rehype-pretty-code-title] {
+  @apply mt-4 px-4 py-2 text-sm font-medium text-muted-foreground bg-muted/50 rounded-t-lg border border-b-0;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  @apply mt-0 rounded-t-none border-t-0;
+}
+
+.mdx {
+  @apply text-base leading-7 text-foreground/90;
+}
+
+.mdx > * + * {
+  @apply mt-6;
+}
+
+.mdx :is(h2, h3, h4) {
+  @apply scroll-m-20 tracking-tight text-foreground;
+}
+
+.mdx h2 {
+  @apply mt-12 border-b pb-2 text-3xl font-semibold transition-colors first:mt-0;
+}
+
+.mdx h3 {
+  @apply mt-8 text-2xl font-semibold;
+}
+
+.mdx h4 {
+  @apply mt-8 text-xl font-semibold;
+}
+
+.mdx a {
+  @apply font-medium text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary;
+}
+
+.mdx p {
+  @apply leading-7 [&:not(:first-child)]:mt-6;
+}
+
+.mdx ul {
+  @apply my-6 ml-6 list-disc marker:text-muted-foreground;
+}
+
+.mdx ol {
+  @apply my-6 ml-6 list-decimal marker:text-muted-foreground;
+}
+
+.mdx li {
+  @apply mt-2 leading-7;
+}
+
+.mdx blockquote {
+  @apply mt-6 border-l-2 border-primary/30 pl-6 italic text-muted-foreground;
+}
+
+.mdx img {
+  @apply my-8 rounded-lg border bg-muted/30 transition-colors;
+}
+
+.mdx hr {
+  @apply my-8 border-muted-foreground/20;
+}
+
+.mdx pre {
+  @apply my-0 overflow-x-auto rounded-lg border bg-black py-4 text-[13px];
+}
+
+.mdx pre > code {
+  @apply relative grid text-[13px] leading-6;
+  background: none !important;
+}
+
+.mdx pre code {
+  @apply p-0;
+  min-width: 100%;
+  border: 0 !important;
+  background: none !important;
+}
+
+.mdx pre [data-line] {
+  @apply px-4 py-0.5;
+}
+
+.mdx pre::-webkit-scrollbar {
+  @apply h-2.5 w-2.5;
+}
+
+.mdx pre::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.mdx pre::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-border hover:bg-muted-foreground/30 transition-colors;
+}
+
+.mdx code:not(pre code) {
+  @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm text-muted-foreground;
+}
+
+.mdx table {
+  @apply my-8 w-full overflow-hidden rounded-lg border bg-card text-sm;
+}
+
+.mdx thead {
+  @apply bg-muted;
+}
+
+.mdx tr {
+  @apply border-b transition-colors hover:bg-muted/50;
+}
+
+.mdx tr:last-child {
+  @apply border-0;
+}
+
+.mdx th {
+  @apply border-r px-4 py-3 text-left font-medium text-muted-foreground [&[align=center]]:text-center [&[align=right]]:text-right;
+}
+
+.mdx td {
+  @apply border-r px-4 py-3 text-left [&[align=center]]:text-center [&[align=right]]:text-right;
+}
+
+.mdx th:last-child,
+.mdx td:last-child {
+  @apply border-0;
+}
+
+/* Add styles for callouts/notes */
+.mdx .note {
+  @apply my-6 rounded-lg border-l-4 border-primary bg-muted p-4 text-sm [&>:first-child]:mt-0 [&>:last-child]:mb-0;
+}
+
+/* Add styles for keyboard shortcuts */
+.mdx kbd {
+  @apply rounded border bg-muted px-1.5 py-0.5 text-xs font-mono font-semibold shadow-sm;
+}
+
+/* Add styles for inline code in headings */
+.mdx h1 code,
+.mdx h2 code,
+.mdx h3 code {
+  @apply font-bold;
+}
+
+/* Add styles for code block line numbers */
+.mdx pre > code[data-line-numbers] {
+  counter-reset: line;
+}
+
+.mdx pre > code[data-line-numbers] > .line::before {
+  @apply mr-4 inline-block w-4 text-right text-xs text-muted-foreground/40;
+  content: counter(line);
+  counter-increment: line;
+}
+
+/* Add styles for code block titles */
+.mdx pre[data-title] {
+  @apply pt-0;
+}
+
+.mdx pre[data-title]::before {
+  @apply block w-full px-4 py-2 text-sm font-medium text-muted-foreground bg-muted/50 border-b;
+  content: attr(data-title);
+}

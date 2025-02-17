@@ -1,0 +1,1 @@
+export { MarketingNavbar } from "./MarketingNavbar";
