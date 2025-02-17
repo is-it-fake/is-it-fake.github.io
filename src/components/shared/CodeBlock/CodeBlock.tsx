@@ -22,8 +22,11 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   showLineNumbers = false,
   noBorder = false,
 }) => {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
   const [processedCode, setProcessedCode] = useState("");
+
+  // Determine the actual theme based on system preference when theme is "system"
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   useEffect(() => {
     const processCode = async () => {
@@ -31,7 +34,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
       const markdownCode = `\`\`\`${language}\n${code}\n\`\`\``;
 
       const options: Options = {
-        theme: theme === "dark" ? "github-dark" : "github-light",
+        theme: currentTheme === "dark" ? "github-dark" : "github-light",
         keepBackground: false,
         grid: true,
         defaultLang: language,
@@ -49,7 +52,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
     };
 
     processCode();
-  }, [code, language, theme]);
+  }, [code, language, currentTheme]);
 
   return (
     <div
@@ -58,7 +61,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
           ? ""
           : "rounded-lg border border-[#d0d7de] dark:border-[#30363d]"
       }`}
-      data-theme={theme}
+      data-theme={currentTheme}
     >
       {title && (
         <div className="flex items-center justify-between border-b border-[#d0d7de] dark:border-[#30363d] px-4 py-2">
@@ -79,13 +82,13 @@ export const CodeBlock: FC<CodeBlockProps> = ({
         <pre
           className="my-0 py-4"
           data-language={language}
-          data-theme={theme}
+          data-theme={currentTheme}
           data-line-numbers={showLineNumbers}
         >
           <code
             className={`language-${language} grid`}
             data-language={language}
-            data-theme={theme}
+            data-theme={currentTheme}
             data-line-numbers={showLineNumbers}
             dangerouslySetInnerHTML={{ __html: processedCode }}
           />
