@@ -79,7 +79,7 @@ export function EmailChecker({ serverStatus }: EmailCheckerProps) {
     setResult(null);
 
     try {
-      const response = await fetch("/api/check-email", {
+      const response = await fetch("https://mail.isitfake.xyz/check-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
