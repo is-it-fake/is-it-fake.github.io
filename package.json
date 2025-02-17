@@ -41,5 +41,8 @@
     "typescript": "^5",
     "vercel": "^32.0.0",
     "wrangler": "^3.0.0"
+  },
+  "engines": {
+    "yarn": "1.22.22"
   }
 }
