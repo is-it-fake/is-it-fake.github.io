@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { CodeBlock } from "@/components/shared/CodeBlock/CodeBlock";
 
 // Motion components
 const MotionDiv = motion.div;
@@ -232,19 +233,18 @@ async function checkEmail(email) {
                 </div>
 
                 <TabsContent value="curl" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`curl -X POST https://mail.isitfake.xyz/check-email \\
+                  <CodeBlock
+                    code={`curl -X POST https://mail.isitfake.xyz/check-email \\
   -H "Content-Type: application/json" \\
   -d '{"email": "user@example.com"}'`}
-                    </pre>
-                  </div>
+                    language="bash"
+                    showLineNumbers={false}
+                  />
                 </TabsContent>
 
                 <TabsContent value="js" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`fetch("https://mail.isitfake.xyz/check-email", {
+                  <CodeBlock
+                    code={`fetch("https://mail.isitfake.xyz/check-email", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -256,14 +256,14 @@ async function checkEmail(email) {
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));`}
-                    </pre>
-                  </div>
+                    language="javascript"
+                    showLineNumbers={false}
+                  />
                 </TabsContent>
 
                 <TabsContent value="python" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`import requests
+                  <CodeBlock
+                    code={`import requests
 
 response = requests.post(
     "https://mail.isitfake.xyz/check-email",
@@ -272,14 +272,14 @@ response = requests.post(
 
 data = response.json()
 print(data)`}
-                    </pre>
-                  </div>
+                    language="python"
+                    showLineNumbers={false}
+                  />
                 </TabsContent>
 
                 <TabsContent value="node" className="mt-0">
-                  <div className="font-mono text-xs sm:text-sm bg-[#f6f8fa] dark:bg-[#161b22] p-3 sm:p-4 rounded-b-lg overflow-x-auto">
-                    <pre className="text-[#24292f] dark:text-[#c9d1d9] whitespace-pre-wrap break-all">
-                      {`const axios = require("axios");
+                  <CodeBlock
+                    code={`const axios = require("axios");
 
 async function checkEmail(email) {
   try {
@@ -293,8 +293,9 @@ async function checkEmail(email) {
     throw error;
   }
 }`}
-                    </pre>
-                  </div>
+                    language="javascript"
+                    showLineNumbers={false}
+                  />
                 </TabsContent>
               </div>
             </Tabs>
@@ -322,66 +323,28 @@ async function checkEmail(email) {
                   <h4 className="text-sm font-medium text-[#24292f] dark:text-[#c9d1d9] mb-4">
                     Request Body
                   </h4>
-                  <div className="font-mono text-sm bg-[#ffffff] dark:bg-[#0d1117] p-4 rounded-md text-left border border-[#d0d7de] dark:border-[#30363d]">
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"{"}
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;email&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        &quot;user@example.com&quot;
-                      </span>
-                    </div>
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"}"}
-                    </div>
-                  </div>
+                  <CodeBlock
+                    code={`{
+  "email": "user@example.com"
+}`}
+                    language="json"
+                    showLineNumbers={false}
+                  />
                 </div>
 
                 <div className="rounded-lg bg-[#f6f8fa] dark:bg-[#161b22] shadow-sm p-6 border border-[#d0d7de] dark:border-[#30363d]">
                   <h4 className="text-sm font-medium text-[#24292f] dark:text-[#c9d1d9] mb-4">
                     Response
                   </h4>
-                  <div className="font-mono text-sm bg-[#ffffff] dark:bg-[#0d1117] p-4 rounded-md text-left border border-[#d0d7de] dark:border-[#30363d]">
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"{"}
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;email&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        &quot;user@example.com&quot;
-                      </span>
-                      ,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;valid&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        true
-                      </span>
-                      ,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-[#0969da] dark:text-[#2f81f7]">
-                        &quot;message&quot;
-                      </span>
-                      :{" "}
-                      <span className="text-[#24292f] dark:text-[#c9d1d9]">
-                        &quot;Email is valid and active&quot;
-                      </span>
-                    </div>
-                    <div className="text-[#24292f] dark:text-[#c9d1d9]">
-                      {"}"}
-                    </div>
-                  </div>
+                  <CodeBlock
+                    code={`{
+  "email": "user@example.com",
+  "valid": true,
+  "message": "Email is valid and active"
+}`}
+                    language="json"
+                    showLineNumbers={false}
+                  />
                 </div>
               </div>
             </div>

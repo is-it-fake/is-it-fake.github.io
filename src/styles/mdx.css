@@ -1,5 +1,5 @@
 [data-rehype-pretty-code-fragment] {
-  @apply relative my-6;
+  @apply relative;
 }
 
 [data-rehype-pretty-code-fragment] code {
@@ -8,26 +8,26 @@
   box-decoration-break: clone;
 }
 
-[data-rehype-pretty-code-fragment] .line {
-  @apply border-l-2 border-l-transparent px-4 py-0.5;
+[data-rehype-pretty-code-fragment] [data-line] {
+  @apply px-4 py-0.5;
 }
 
-[data-rehype-pretty-code-fragment] [data-line-numbers] .line {
-  @apply px-2;
+[data-rehype-pretty-code-fragment] [data-line-numbers] > [data-line] {
+  @apply pl-12;
   counter-increment: line;
 }
 
-[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
-  @apply mr-4 inline-block w-4 text-right text-xs text-muted-foreground/40;
+[data-rehype-pretty-code-fragment] [data-line-numbers] > [data-line]::before {
+  @apply absolute left-0 w-8 text-right pr-3 text-xs text-muted-foreground/40;
   content: counter(line);
 }
 
 [data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply border-l-primary bg-primary/5;
+  @apply bg-muted/50;
 }
 
 [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply rounded-md border border-primary/20 bg-primary/10 p-1;
+  @apply rounded-md bg-muted/50 border border-border p-1;
 }
 
 [data-rehype-pretty-code-title] {
@@ -110,10 +110,6 @@
   background: none !important;
 }
 
-.mdx pre [data-line] {
-  @apply px-4 py-0.5;
-}
-
 .mdx pre::-webkit-scrollbar {
   @apply h-2.5 w-2.5;
 }
@@ -176,17 +172,6 @@
   @apply font-bold;
 }
 
-/* Add styles for code block line numbers */
-.mdx pre > code[data-line-numbers] {
-  counter-reset: line;
-}
-
-.mdx pre > code[data-line-numbers] > .line::before {
-  @apply mr-4 inline-block w-4 text-right text-xs text-muted-foreground/40;
-  content: counter(line);
-  counter-increment: line;
-}
-
 /* Add styles for code block titles */
 .mdx pre[data-title] {
   @apply pt-0;
@@ -195,4 +180,149 @@
 .mdx pre[data-title]::before {
   @apply block w-full px-4 py-2 text-sm font-medium text-muted-foreground bg-muted/50 border-b;
   content: attr(data-title);
+}
+
+/* Syntax highlighting colors - Light theme */
+[data-theme="light"] {
+  --shiki-color-text: #24292f;
+  --shiki-color-background: transparent;
+  --shiki-token-constant: #0550ae;
+  --shiki-token-string: #0a3069;
+  --shiki-token-comment: #6e7781;
+  --shiki-token-keyword: #cf222e;
+  --shiki-token-parameter: #24292f;
+  --shiki-token-function: #8250df;
+  --shiki-token-string-expression: #0a3069;
+  --shiki-token-punctuation: #24292f;
+  --shiki-token-link: #0a3069;
+}
+
+/* Syntax highlighting colors - Dark theme */
+[data-theme="dark"] {
+  --shiki-color-text: #c9d1d9;
+  --shiki-color-background: transparent;
+  --shiki-token-constant: #79c0ff;
+  --shiki-token-string: #a5d6ff;
+  --shiki-token-comment: #8b949e;
+  --shiki-token-keyword: #ff7b72;
+  --shiki-token-parameter: #c9d1d9;
+  --shiki-token-function: #d2a8ff;
+  --shiki-token-string-expression: #a5d6ff;
+  --shiki-token-punctuation: #c9d1d9;
+  --shiki-token-link: #a5d6ff;
+}
+
+/* Code token styles */
+.token.parameter {
+  color: var(--shiki-token-parameter);
+}
+
+.token.function {
+  color: var(--shiki-token-function);
+}
+
+.token.string {
+  color: var(--shiki-token-string);
+}
+
+.token.keyword {
+  color: var(--shiki-token-keyword);
+}
+
+.token.comment {
+  color: var(--shiki-token-comment);
+}
+
+.token.constant {
+  color: var(--shiki-token-constant);
+}
+
+.token.punctuation {
+  color: var(--shiki-token-punctuation);
+}
+
+/* Language-specific token colors */
+.language-json .property {
+  color: var(--shiki-token-constant);
+}
+
+.language-json .string {
+  color: var(--shiki-token-string);
+}
+
+.language-javascript .keyword {
+  color: var(--shiki-token-keyword);
+}
+
+.language-javascript .function {
+  color: var(--shiki-token-function);
+}
+
+.language-javascript .string {
+  color: var(--shiki-token-string);
+}
+
+.language-python .keyword {
+  color: var(--shiki-token-keyword);
+}
+
+.language-python .function {
+  color: var(--shiki-token-function);
+}
+
+.language-python .string {
+  color: var(--shiki-token-string);
+}
+
+.language-bash .function {
+  color: var(--shiki-token-function);
+}
+
+.language-bash .string {
+  color: var(--shiki-token-string);
+}
+
+/* Additional syntax highlighting styles */
+code {
+  counter-reset: line;
+}
+
+code > .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: var(--shiki-token-comment);
+}
+
+code[data-line-numbers-max-digits="2"] > .line::before {
+  width: 2rem;
+}
+
+code[data-line-numbers-max-digits="3"] > .line::before {
+  width: 3rem;
+}
+
+/* Line numbers */
+.with-line-numbers {
+  counter-reset: line;
+}
+
+.with-line-numbers .line {
+  padding-left: 3rem;
+  position: relative;
+}
+
+.with-line-numbers .line::before {
+  content: counter(line);
+  counter-increment: line;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.5rem;
+  text-align: right;
+  color: var(--shiki-token-comment);
+  padding-right: 1rem;
 }
